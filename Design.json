@@ -1,0 +1,224 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2818
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 \{\
+  "designSystemProfile": \{\
+    "name": "Highwood Emissions Management Style",\
+    "description": "A modern, clean, and professional design system for a corporate/tech website, focusing on clarity, trust, and data visualization. The style is characterized by ample whitespace, a primary green accent color, well-structured card-based layouts, and a clear typographic hierarchy.",\
+    "colors": \{\
+      "palette": \{\
+        "background": \{\
+          "primary": "#FFFFFF",\
+          "secondary": "#F9F9F9",\
+          "dark": "#1A1A1A"\
+        \},\
+        "text": \{\
+          "primary": "#1A1A1A",\
+          "secondary": "#555555",\
+          "inverted": "#FFFFFF",\
+          "accent": "#00A973"\
+        \},\
+        "accent": \{\
+          "primary": "#00A973",\
+          "operations": "#00A973",\
+          "ghg": "#5596F6",\
+          "esg": "#84D447",\
+          "compliance": "#D8B26E",\
+          "cSuite": "#C06A6D"\
+        \},\
+        "border": \{\
+          "light": "#EAEAEA",\
+          "medium": "#DDDDDD"\
+        \}\
+      \}\
+    \},\
+    "typography": \{\
+      "fontFamily": \{\
+        "primary": "'Satoshi', 'Inter', system-ui, -apple-system, sans-serif",\
+        "description": "Use a modern, geometric sans-serif font. Satoshi or Inter are excellent choices."\
+      \},\
+      "headings": \{\
+        "h1": \{\
+          "fontSize": "clamp(2.5rem, 5vw, 4rem)",\
+          "fontWeight": 700,\
+          "lineHeight": 1.1,\
+          "letterSpacing": "-0.02em",\
+          "color": "colors.text.primary or colors.text.inverted on dark backgrounds"\
+        \},\
+        "h2": \{\
+          "fontSize": "clamp(1.8rem, 4vw, 2.5rem)",\
+          "fontWeight": 600,\
+          "lineHeight": 1.2,\
+          "color": "colors.text.primary"\
+        \},\
+        "h3": \{\
+          "fontSize": "1.5rem",\
+          "fontWeight": 600,\
+          "lineHeight": 1.3,\
+          "color": "colors.text.primary"\
+        \},\
+        "eyebrow": \{\
+          "fontSize": "0.875rem",\
+          "fontWeight": 500,\
+          "textTransform": "uppercase",\
+          "letterSpacing": "0.1em",\
+          "color": "colors.text.accent"\
+        \}\
+      \},\
+      "body": \{\
+        "p": \{\
+          "fontSize": "1rem",\
+          "fontWeight": 400,\
+          "lineHeight": 1.6,\
+          "color": "colors.text.secondary",\
+          "maxWidth": "65ch"\
+        \},\
+        "link": \{\
+          "color": "colors.accent.primary",\
+          "textDecoration": "none",\
+          "fontWeight": 500,\
+          "hover": \{\
+            "textDecoration": "underline"\
+          \}\
+        \}\
+      \}\
+    \},\
+    "layout": \{\
+      "container": \{\
+        "maxWidth": "1280px",\
+        "padding": "0 2rem"\
+      \},\
+      "spacing": \{\
+        "xs": "0.25rem",\
+        "sm": "0.5rem",\
+        "md": "1rem",\
+        "lg": "2rem",\
+        "xl": "4rem",\
+        "sectionGap": "6rem"\
+      \}\
+    \},\
+    "components": \{\
+      "buttons": \{\
+        "baseStyle": \{\
+          "fontFamily": "typography.fontFamily.primary",\
+          "fontWeight": 600,\
+          "fontSize": "0.95rem",\
+          "padding": "0.75rem 1.5rem",\
+          "borderRadius": "9999px",\
+          "border": "none",\
+          "cursor": "pointer",\
+          "transition": "transform 0.2s ease, background-color 0.2s ease",\
+          "display": "inline-flex",\
+          "alignItems": "center",\
+          "justifyContent": "center",\
+          "gap": "0.5rem"\
+        \},\
+        "variants": \{\
+          "primary": \{\
+            "backgroundColor": "colors.accent.primary",\
+            "color": "colors.text.inverted",\
+            "hover": \{\
+              "filter": "brightness(110%)",\
+              "transform": "scale(1.03)"\
+            \}\
+          \},\
+          "cardAction": \{\
+            "description": "Used within cards. The color should adapt to match the context or category color of the card. Includes a right-arrow icon.",\
+            "backgroundColor": "colors.accent.primary",\
+            "color": "colors.text.inverted"\
+          \}\
+        \}\
+      \},\
+      "cards": \{\
+        "baseStyle": \{\
+          "backgroundColor": "colors.background.primary",\
+          "borderRadius": "16px",\
+          "padding": "2rem",\
+          "boxShadow": "0 4px 12px rgba(0, 0, 0, 0.05)",\
+          "border": "1px solid colors.border.light",\
+          "display": "flex",\
+          "flexDirection": "column"\
+        \},\
+        "variants": \{\
+          "featureCard": \{\
+            "description": "Large cards for primary offerings like Platform, Consulting, Education.",\
+            "textAlign": "left",\
+            "gap": "1rem",\
+            "minHeight": "300px",\
+            "justifyContent": "space-between"\
+          \},\
+          "roleCard": \{\
+            "description": "Smaller cards for targeted roles like Operations, GHG, ESG.",\
+            "textAlign": "left",\
+            "gap": "0.75rem",\
+            "alignItems": "flex-start"\
+          \}\
+        \}\
+      \},\
+      "icons": \{\
+        "style": "outline",\
+        "strokeWidth": 1.5,\
+        "size": "24px",\
+        "color": "currentColor",\
+        "container": \{\
+          "description": "For role cards, icons are placed within a circular container with a subtle gradient background related to its category color.",\
+          "size": "48px",\
+          "borderRadius": "50%",\
+          "display": "flex",\
+          "alignItems": "center",\
+          "justifyContent": "center",\
+          "background": "A subtle radial gradient derived from the category's accent color (e.g., a lighter version in the center fading to the primary accent color)."\
+        \}\
+      \},\
+      "header": \{\
+        "height": "80px",\
+        "backgroundColor": "rgba(255, 255, 255, 0.8)",\
+        "backdropFilter": "blur(10px)",\
+        "borderBottom": "1px solid colors.border.light",\
+        "padding": "0 layout.spacing.lg",\
+        "display": "flex",\
+        "justifyContent": "space-between",\
+        "alignItems": "center",\
+        "position": "sticky",\
+        "top": 0,\
+        "zIndex": 100\
+      \}\
+    \},\
+    "structure": \{\
+      "page": \{\
+        "backgroundColor": "colors.background.secondary",\
+        "color": "colors.text.primary"\
+      \},\
+      "sections": \{\
+        "default": \{\
+          "padding": "layout.spacing.sectionGap 0",\
+          "backgroundColor": "transparent"\
+        \},\
+        "dark": \{\
+          "description": "A high-contrast section for featured content.",\
+          "padding": "layout.spacing.sectionGap 0",\
+          "backgroundColor": "colors.background.dark",\
+          "color": "colors.text.inverted"\
+        \}\
+      \},\
+      "cardLayouts": \{\
+        "threeColumn": \{\
+          "description": "A responsive grid for 3 main feature cards. Breaks down to a single column on mobile.",\
+          "display": "grid",\
+          "gridTemplateColumns": "repeat(auto-fit, minmax(300px, 1fr))",\
+          "gap": "layout.spacing.lg"\
+        \},\
+        "fiveColumn": \{\
+          "description": "A responsive grid for 5 smaller role-based cards. Breaks down to 2 columns on tablet and 1 on mobile.",\
+          "display": "grid",\
+          "gridTemplateColumns": "repeat(auto-fit, minmax(200px, 1fr))",\
+          "gap": "layout.spacing.md"\
+        \}\
+      \}\
+    \}\
+  \}\
+\}}
