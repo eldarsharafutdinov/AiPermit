@@ -7,7 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
         lucide.createIcons();
     }
 
-    // EmailJS initialization removed for now
+    // Initialize Supabase
+    initSupabase();
 
     // Smooth scrolling for navigation links
     initSmoothScrolling();
@@ -359,128 +360,85 @@ function handleDemoSubmission() {
         return;
     }
 
-    // Show success message immediately (no email sending for now)
+    // Show loading state
+    showNotification('Sending your request...');
+
+    // Save to Supabase
+    saveToSupabase(demoData);
+}
+
+// Supabase configuration
+let supabase;
+
+// Initialize Supabase
+function initSupabase() {
+    // You'll need to replace these with your actual Supabase credentials
+    const supabaseUrl = 'https://gnczqyrlzcchssvvawdk.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImduY3pxeXJsemNjaHNzdnZhd2RrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4ODE5NzcsImV4cCI6MjA3NjQ1Nzk3N30.K7cUVzABmMkL-_fzgxd6zPDMF2pEe40WZ5S15OEoYfY';
+    
+    if (typeof supabase !== 'undefined') {
+        supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+        console.log('Supabase initialized');
+    } else {
+        console.log('Supabase not loaded');
+    }
+}
+
+// Save form data to Supabase
+function saveToSupabase(demoData) {
+    if (!supabase) {
+        console.log('Supabase not available, showing success message anyway');
+        showSuccessMessage(demoData);
+        return;
+    }
+
+    // Insert data into Supabase
+    supabase
+        .from('demo_requests')
+        .insert([
+            {
+                name: demoData.name,
+                email: demoData.email,
+                company: demoData.company,
+                phone: demoData.phone || null,
+                message: demoData.message || null,
+                created_at: new Date().toISOString()
+            }
+        ])
+        .then(({ data, error }) => {
+            if (error) {
+                console.error('Supabase error:', error);
+                showNotification('Sorry, there was an error saving your request. Please try again.');
+            } else {
+                console.log('Data saved to Supabase:', data);
+                showSuccessMessage(demoData);
+            }
+        })
+        .catch((error) => {
+            console.error('Supabase error:', error);
+            showNotification('Sorry, there was an error saving your request. Please try again.');
+        });
+}
+
+// Show success message and reset form
+function showSuccessMessage(demoData) {
+    // Show success message
     showNotification('Thank you for your demo request! We\'ll contact you soon.');
     
     // Close modal
     closeDemoModal();
     
     // Reset form
-    form.reset();
+    document.getElementById('demoForm').reset();
     
     // Log the data for manual processing
-    console.log('Demo request data (for manual processing):', demoData);
+    console.log('Demo request data:', demoData);
     
     // Track the event
     trackEvent('demo_request_submitted', {
         company: demoData.company,
         name: demoData.name
     });
-}
-
-// Send demo request email
-function sendDemoEmail(demoData) {
-    // Check if EmailJS is available and configured
-    if (typeof emailjs === 'undefined' || !emailjs.init) {
-        console.log('EmailJS not available, showing success message anyway');
-        
-        // Show success message even without email sending
-        showNotification('Thank you for your demo request! We\'ll contact you soon.');
-        
-        // Close modal
-        closeDemoModal();
-        
-        // Reset form
-        document.getElementById('demoForm').reset();
-        
-        // Track the event
-        trackEvent('demo_request_submitted', {
-            company: demoData.company,
-            name: demoData.name
-        });
-        
-        // Log the data for manual processing
-        console.log('Demo request data (for manual processing):', demoData);
-        return;
-    }
-
-    // EmailJS template parameters
-    const templateParams = {
-        to_email: 'info@1001x.ai',
-        from_name: demoData.name,
-        from_email: demoData.email,
-        company: demoData.company,
-        phone: demoData.phone || 'Not provided',
-        message: demoData.message || 'No additional message',
-        reply_to: demoData.email
-    };
-
-    // Check if EmailJS is properly configured
-    if (emailjs.init.toString().includes('YOUR_PUBLIC_KEY')) {
-        console.log('EmailJS not configured yet, showing success message anyway');
-        
-        // Show success message
-        showNotification('Thank you for your demo request! We\'ll contact you soon.');
-        
-        // Close modal
-        closeDemoModal();
-        
-        // Reset form
-        document.getElementById('demoForm').reset();
-        
-        // Track the event
-        trackEvent('demo_request_submitted', {
-            company: demoData.company,
-            name: demoData.name
-        });
-        
-        // Log the data for manual processing
-        console.log('Demo request data (for manual processing):', demoData);
-        return;
-    }
-
-    // Send email using EmailJS
-    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
-        .then(function(response) {
-            console.log('Email sent successfully:', response);
-            
-            // Show success message
-            showNotification('Thank you for your demo request! We\'ll contact you soon.');
-            
-            // Close modal
-            closeDemoModal();
-            
-            // Reset form
-            document.getElementById('demoForm').reset();
-            
-            // Track the event
-            trackEvent('demo_request_submitted', {
-                company: demoData.company,
-                name: demoData.name
-            });
-        })
-        .catch(function(error) {
-            console.error('Email sending failed:', error);
-            
-            // Show error message
-            showNotification('Sorry, there was an error sending your request. Please try again or contact us directly.');
-        });
-}
-
-// Initialize EmailJS
-function initEmailJS() {
-    // Initialize EmailJS with your public key
-    // You'll need to replace 'YOUR_PUBLIC_KEY' with your actual EmailJS public key
-    try {
-        if (typeof emailjs !== 'undefined') {
-            emailjs.init('YOUR_PUBLIC_KEY');
-            console.log('EmailJS initialized');
-        } else {
-            console.log('EmailJS not loaded');
-        }
-    } catch (error) {
-        console.log('EmailJS initialization failed:', error);
-    }
 }
 
 // Test button function removed for production
