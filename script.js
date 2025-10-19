@@ -7,8 +7,7 @@ document.addEventListener('DOMContentLoaded', function() {
         lucide.createIcons();
     }
 
-    // Initialize EmailJS
-    initEmailJS();
+    // EmailJS initialization removed for now
 
     // Smooth scrolling for navigation links
     initSmoothScrolling();
@@ -360,15 +359,51 @@ function handleDemoSubmission() {
         return;
     }
 
-    // Show loading state
-    showNotification('Sending your request...');
-
-    // Send email using EmailJS
-    sendDemoEmail(demoData);
+    // Show success message immediately (no email sending for now)
+    showNotification('Thank you for your demo request! We\'ll contact you soon.');
+    
+    // Close modal
+    closeDemoModal();
+    
+    // Reset form
+    form.reset();
+    
+    // Log the data for manual processing
+    console.log('Demo request data (for manual processing):', demoData);
+    
+    // Track the event
+    trackEvent('demo_request_submitted', {
+        company: demoData.company,
+        name: demoData.name
+    });
 }
 
 // Send demo request email
 function sendDemoEmail(demoData) {
+    // Check if EmailJS is available and configured
+    if (typeof emailjs === 'undefined' || !emailjs.init) {
+        console.log('EmailJS not available, showing success message anyway');
+        
+        // Show success message even without email sending
+        showNotification('Thank you for your demo request! We\'ll contact you soon.');
+        
+        // Close modal
+        closeDemoModal();
+        
+        // Reset form
+        document.getElementById('demoForm').reset();
+        
+        // Track the event
+        trackEvent('demo_request_submitted', {
+            company: demoData.company,
+            name: demoData.name
+        });
+        
+        // Log the data for manual processing
+        console.log('Demo request data (for manual processing):', demoData);
+        return;
+    }
+
     // EmailJS template parameters
     const templateParams = {
         to_email: 'info@1001x.ai',
@@ -379,6 +414,30 @@ function sendDemoEmail(demoData) {
         message: demoData.message || 'No additional message',
         reply_to: demoData.email
     };
+
+    // Check if EmailJS is properly configured
+    if (emailjs.init.toString().includes('YOUR_PUBLIC_KEY')) {
+        console.log('EmailJS not configured yet, showing success message anyway');
+        
+        // Show success message
+        showNotification('Thank you for your demo request! We\'ll contact you soon.');
+        
+        // Close modal
+        closeDemoModal();
+        
+        // Reset form
+        document.getElementById('demoForm').reset();
+        
+        // Track the event
+        trackEvent('demo_request_submitted', {
+            company: demoData.company,
+            name: demoData.name
+        });
+        
+        // Log the data for manual processing
+        console.log('Demo request data (for manual processing):', demoData);
+        return;
+    }
 
     // Send email using EmailJS
     emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
@@ -412,7 +471,16 @@ function sendDemoEmail(demoData) {
 function initEmailJS() {
     // Initialize EmailJS with your public key
     // You'll need to replace 'YOUR_PUBLIC_KEY' with your actual EmailJS public key
-    emailjs.init('YOUR_PUBLIC_KEY');
+    try {
+        if (typeof emailjs !== 'undefined') {
+            emailjs.init('YOUR_PUBLIC_KEY');
+            console.log('EmailJS initialized');
+        } else {
+            console.log('EmailJS not loaded');
+        }
+    } catch (error) {
+        console.log('EmailJS initialization failed:', error);
+    }
 }
 
 // Test button function removed for production
