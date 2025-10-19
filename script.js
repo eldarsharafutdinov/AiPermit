@@ -316,8 +316,11 @@ function initModal() {
     if (demoForm) {
         demoForm.addEventListener('submit', function(e) {
             e.preventDefault();
+            console.log('Form submission triggered');
             handleDemoSubmission();
         });
+    } else {
+        console.log('Demo form not found!');
     }
 
     // Close modal with Escape key
@@ -342,9 +345,18 @@ function handleDemoSubmission() {
         message: formData.get('message')
     };
 
+    // Debug: Log form data
+    console.log('Form data collected:', demoData);
+
     // Validate required fields
-    if (!demoData.name || !demoData.email || !demoData.company) {
-        showNotification('Please fill in all required fields.');
+    const missingFields = [];
+    if (!demoData.name || demoData.name.trim() === '') missingFields.push('Name');
+    if (!demoData.email || demoData.email.trim() === '') missingFields.push('Email');
+    if (!demoData.company || demoData.company.trim() === '') missingFields.push('Company');
+    
+    if (missingFields.length > 0) {
+        console.log('Missing fields:', missingFields);
+        showNotification(`Please fill in: ${missingFields.join(', ')}`);
         return;
     }
 
