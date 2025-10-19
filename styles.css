@@ -83,6 +83,42 @@ body {
     color: var(--text-primary);
 }
 
+/* Logo Container */
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.logo-container:hover {
+    transform: scale(1.05);
+}
+
+.logo-text {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    transition: color 0.3s ease;
+}
+
+.logo-container:hover .logo-text {
+    color: var(--text-primary);
+}
+
+.orbit-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    color: var(--primary-green);
+    transition: all 0.3s ease;
+}
+
+.logo-container:hover .orbit-icon {
+    color: var(--text-accent);
+    transform: rotate(10deg);
+}
+
 .nav {
     display: none;
     gap: 2rem;
