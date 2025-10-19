@@ -106,12 +106,13 @@ function initButtonInteractions() {
         console.log('Hero CTA button not found');
     }
 
-    // Service card buttons
+    // Service card buttons - open modal
     const cardButtons = document.querySelectorAll('.btn-card');
     cardButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const cardTitle = this.closest('.service-card').querySelector('.card-title').textContent;
-            handleCtaClick(`Learn More clicked for ${cardTitle}`);
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Learn More button clicked, opening modal');
+            openDemoModal();
         });
     });
 
@@ -121,7 +122,8 @@ function initButtonInteractions() {
         if (link.textContent === 'Request a Demo') {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
-                handleCtaClick('Footer CTA clicked');
+                console.log('Footer Request a Demo clicked, opening modal');
+                openDemoModal();
             });
         }
     });
@@ -376,11 +378,20 @@ function initSupabase() {
     const supabaseUrl = 'https://gnczqyrlzcchssvvawdk.supabase.co';
     const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImduY3pxeXJsemNjaHNzdnZhd2RrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4ODE5NzcsImV4cCI6MjA3NjQ1Nzk3N30.K7cUVzABmMkL-_fzgxd6zPDMF2pEe40WZ5S15OEoYfY';
     
-    if (typeof supabase !== 'undefined') {
+    if (typeof window.supabase !== 'undefined') {
         supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
         console.log('Supabase initialized');
     } else {
-        console.log('Supabase not loaded');
+        console.log('Supabase library not loaded - check if script is included');
+        // Try again after a short delay
+        setTimeout(() => {
+            if (typeof window.supabase !== 'undefined') {
+                supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+                console.log('Supabase initialized (delayed)');
+            } else {
+                console.log('Supabase still not available');
+            }
+        }, 1000);
     }
 }
 
