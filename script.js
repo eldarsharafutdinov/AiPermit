@@ -25,8 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize modal functionality
     initModal();
     
-    // Add test button for debugging
-    addTestButton();
+    // Test button removed for production
 });
 
 // Smooth scrolling for navigation links
@@ -369,28 +368,7 @@ function handleDemoSubmission() {
     });
 }
 
-// Add test button for debugging
-function addTestButton() {
-    const testButton = document.createElement('button');
-    testButton.textContent = 'TEST MODAL';
-    testButton.style.cssText = `
-        position: fixed;
-        top: 10px;
-        right: 10px;
-        z-index: 9999;
-        background: red;
-        color: white;
-        padding: 10px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    `;
-    testButton.addEventListener('click', function() {
-        console.log('Test button clicked');
-        openDemoModal();
-    });
-    document.body.appendChild(testButton);
-}
+// Test button function removed for production
 
 // Export functions for potential external use
 window.AIPermit = {
