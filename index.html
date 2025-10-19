@@ -17,6 +17,9 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     
+    <!-- EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="3d-leaf.css">
@@ -93,9 +96,6 @@
         
         <div class="container">
             <div class="hero-content">
-                <div class="eyebrow">
-                    FOR TEXAS OIL & GAS OPERATORS
-                </div>
                 <h1 class="hero-title">
                     Elevate Your Permitting Experience
                 </h1>
@@ -284,18 +284,19 @@
     <div id="demoModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Request a Demo</h2>
+                <div class="modal-brand">
+                    <div class="logo-container">
+                        <i data-lucide="orbit" class="orbit-icon"></i>
+                        <div class="logo-text">AIPermit</div>
+                    </div>
+                    <h2 class="modal-title">Request a Demo</h2>
+                </div>
                 <span class="close">&times;</span>
             </div>
             <form id="demoForm" class="demo-form">
                 <div class="form-group">
-                    <label for="firstName">First Name *</label>
-                    <input type="text" id="firstName" name="firstName" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="lastName">Last Name *</label>
-                    <input type="text" id="lastName" name="lastName" required>
+                    <label for="name">Name *</label>
+                    <input type="text" id="name" name="name" required>
                 </div>
                 
                 <div class="form-group">
@@ -309,38 +310,13 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="jobTitle">Job Title</label>
-                    <input type="text" id="jobTitle" name="jobTitle">
-                </div>
-                
-                <div class="form-group">
                     <label for="phone">Phone Number</label>
                     <input type="tel" id="phone" name="phone">
                 </div>
                 
                 <div class="form-group">
-                    <label for="industry">Industry</label>
-                    <select id="industry" name="industry">
-                        <option value="">Select Industry</option>
-                        <option value="oil-gas">Oil & Gas</option>
-                        <option value="consulting">Environmental Consulting</option>
-                        <option value="energy">Energy</option>
-                        <option value="manufacturing">Manufacturing</option>
-                        <option value="other">Other</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
                     <label for="message">Message</label>
                     <textarea id="message" name="message" rows="4" placeholder="Tell us about your compliance needs..."></textarea>
-                </div>
-                
-                <div class="form-group checkbox-group">
-                    <label class="checkbox-label">
-                        <input type="checkbox" id="newsletter" name="newsletter">
-                        <span class="checkmark"></span>
-                        Subscribe to our newsletter for compliance updates
-                    </label>
                 </div>
                 
                 <div class="form-actions">

@@ -7,6 +7,9 @@ document.addEventListener('DOMContentLoaded', function() {
         lucide.createIcons();
     }
 
+    // Initialize EmailJS
+    initEmailJS();
+
     // Smooth scrolling for navigation links
     initSmoothScrolling();
     
@@ -332,40 +335,72 @@ function handleDemoSubmission() {
     
     // Collect form data
     const demoData = {
-        firstName: formData.get('firstName'),
-        lastName: formData.get('lastName'),
+        name: formData.get('name'),
         email: formData.get('email'),
         company: formData.get('company'),
-        jobTitle: formData.get('jobTitle'),
         phone: formData.get('phone'),
-        industry: formData.get('industry'),
-        message: formData.get('message'),
-        newsletter: formData.get('newsletter') === 'on'
+        message: formData.get('message')
     };
 
     // Validate required fields
-    if (!demoData.firstName || !demoData.lastName || !demoData.email || !demoData.company) {
+    if (!demoData.name || !demoData.email || !demoData.company) {
         showNotification('Please fill in all required fields.');
         return;
     }
 
-    // Show success message
-    showNotification('Thank you for your demo request! We\'ll contact you soon.');
-    
-    // Close modal
-    closeDemoModal();
-    
-    // Reset form
-    form.reset();
-    
-    // Here you would typically send the data to your server
-    console.log('Demo request data:', demoData);
-    
-    // Track the event
-    trackEvent('demo_request_submitted', {
+    // Show loading state
+    showNotification('Sending your request...');
+
+    // Send email using EmailJS
+    sendDemoEmail(demoData);
+}
+
+// Send demo request email
+function sendDemoEmail(demoData) {
+    // EmailJS template parameters
+    const templateParams = {
+        to_email: 'info@1001x.ai',
+        from_name: demoData.name,
+        from_email: demoData.email,
         company: demoData.company,
-        industry: demoData.industry
-    });
+        phone: demoData.phone || 'Not provided',
+        message: demoData.message || 'No additional message',
+        reply_to: demoData.email
+    };
+
+    // Send email using EmailJS
+    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', templateParams)
+        .then(function(response) {
+            console.log('Email sent successfully:', response);
+            
+            // Show success message
+            showNotification('Thank you for your demo request! We\'ll contact you soon.');
+            
+            // Close modal
+            closeDemoModal();
+            
+            // Reset form
+            document.getElementById('demoForm').reset();
+            
+            // Track the event
+            trackEvent('demo_request_submitted', {
+                company: demoData.company,
+                name: demoData.name
+            });
+        })
+        .catch(function(error) {
+            console.error('Email sending failed:', error);
+            
+            // Show error message
+            showNotification('Sorry, there was an error sending your request. Please try again or contact us directly.');
+        });
+}
+
+// Initialize EmailJS
+function initEmailJS() {
+    // Initialize EmailJS with your public key
+    // You'll need to replace 'YOUR_PUBLIC_KEY' with your actual EmailJS public key
+    emailjs.init('YOUR_PUBLIC_KEY');
 }
 
 // Test button function removed for production
