@@ -21,6 +21,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Initialize form handling (if forms are added later)
     initFormHandling();
+    
+    // Initialize modal functionality
+    initModal();
+    
+    // Add test button for debugging
+    addTestButton();
 });
 
 // Smooth scrolling for navigation links
@@ -72,20 +78,30 @@ function initScrollAnimations() {
 
 // Button interactions and CTA handling
 function initButtonInteractions() {
-    // Header CTA button
+    // Header CTA button - Open modal
     const headerCta = document.getElementById('header-cta');
     if (headerCta) {
-        headerCta.addEventListener('click', function() {
-            handleCtaClick('Header CTA clicked');
+        console.log('Header CTA button found, adding click listener');
+        headerCta.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Header CTA clicked, opening modal');
+            openDemoModal();
         });
+    } else {
+        console.log('Header CTA button not found');
     }
 
-    // Hero CTA button
+    // Hero CTA button - Open modal
     const heroCta = document.getElementById('hero-cta');
     if (heroCta) {
-        heroCta.addEventListener('click', function() {
-            handleCtaClick('Hero CTA clicked');
+        console.log('Hero CTA button found, adding click listener');
+        heroCta.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Hero CTA clicked, opening modal');
+            openDemoModal();
         });
+    } else {
+        console.log('Hero CTA button not found');
     }
 
     // Service card buttons
@@ -247,10 +263,141 @@ function trackEvent(eventName, eventData) {
     // - Other analytics platforms
 }
 
+// Modal functionality
+function openDemoModal() {
+    console.log('openDemoModal called');
+    const modal = document.getElementById('demoModal');
+    if (modal) {
+        console.log('Modal found, opening...');
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    } else {
+        console.log('Modal not found!');
+    }
+}
+
+function closeDemoModal() {
+    const modal = document.getElementById('demoModal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto'; // Restore scrolling
+    }
+}
+
+// Initialize modal functionality
+function initModal() {
+    const modal = document.getElementById('demoModal');
+    const closeBtn = document.querySelector('.close');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const demoForm = document.getElementById('demoForm');
+
+    // Close modal when clicking X
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeDemoModal);
+    }
+
+    // Close modal when clicking Cancel
+    if (cancelBtn) {
+        cancelBtn.addEventListener('click', closeDemoModal);
+    }
+
+    // Close modal when clicking outside
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeDemoModal();
+            }
+        });
+    }
+
+    // Handle form submission
+    if (demoForm) {
+        demoForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            handleDemoSubmission();
+        });
+    }
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && modal && modal.style.display === 'block') {
+            closeDemoModal();
+        }
+    });
+}
+
+// Handle demo form submission
+function handleDemoSubmission() {
+    const form = document.getElementById('demoForm');
+    const formData = new FormData(form);
+    
+    // Collect form data
+    const demoData = {
+        firstName: formData.get('firstName'),
+        lastName: formData.get('lastName'),
+        email: formData.get('email'),
+        company: formData.get('company'),
+        jobTitle: formData.get('jobTitle'),
+        phone: formData.get('phone'),
+        industry: formData.get('industry'),
+        message: formData.get('message'),
+        newsletter: formData.get('newsletter') === 'on'
+    };
+
+    // Validate required fields
+    if (!demoData.firstName || !demoData.lastName || !demoData.email || !demoData.company) {
+        showNotification('Please fill in all required fields.');
+        return;
+    }
+
+    // Show success message
+    showNotification('Thank you for your demo request! We\'ll contact you soon.');
+    
+    // Close modal
+    closeDemoModal();
+    
+    // Reset form
+    form.reset();
+    
+    // Here you would typically send the data to your server
+    console.log('Demo request data:', demoData);
+    
+    // Track the event
+    trackEvent('demo_request_submitted', {
+        company: demoData.company,
+        industry: demoData.industry
+    });
+}
+
+// Add test button for debugging
+function addTestButton() {
+    const testButton = document.createElement('button');
+    testButton.textContent = 'TEST MODAL';
+    testButton.style.cssText = `
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        z-index: 9999;
+        background: red;
+        color: white;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    `;
+    testButton.addEventListener('click', function() {
+        console.log('Test button clicked');
+        openDemoModal();
+    });
+    document.body.appendChild(testButton);
+}
+
 // Export functions for potential external use
 window.AIPermit = {
     trackEvent,
     showNotification,
     scrollToTop,
-    refreshIcons
+    refreshIcons,
+    openDemoModal,
+    closeDemoModal
 };

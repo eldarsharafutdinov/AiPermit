@@ -19,14 +19,16 @@
     
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="3d-leaf.css">
 </head>
 <body>
     <!-- Header -->
     <header class="header">
         <div class="container">
-            <div class="logo">
-                AIPermit
-            </div>
+            <a href="#" class="logo-container">
+                <i data-lucide="orbit" class="orbit-icon"></i>
+                <div class="logo-text">AIPermit</div>
+            </a>
             <nav class="nav">
                 <a href="#services" class="nav-link">Services</a>
                 <a href="#features" class="nav-link">Features</a>
@@ -40,6 +42,55 @@
 
     <!-- Hero Section -->
     <section class="hero">
+        <!-- Dynamic Background -->
+        <div class="hero-background">
+            <div class="floating-particles">
+                <div class="particle particle-1"></div>
+                <div class="particle particle-2"></div>
+                <div class="particle particle-3"></div>
+                <div class="particle particle-4"></div>
+                <div class="particle particle-5"></div>
+                <div class="particle particle-6"></div>
+                <div class="particle particle-7"></div>
+                <div class="particle particle-8"></div>
+                <div class="particle particle-9"></div>
+                <div class="particle particle-10"></div>
+                <div class="particle particle-11"></div>
+                <div class="particle particle-12"></div>
+                <div class="particle particle-13"></div>
+                <div class="particle particle-14"></div>
+                <div class="particle particle-15"></div>
+                <div class="particle particle-16"></div>
+                <div class="particle particle-17"></div>
+                <div class="particle particle-18"></div>
+                <div class="particle particle-19"></div>
+                <div class="particle particle-20"></div>
+                <div class="particle particle-21"></div>
+                <div class="particle particle-22"></div>
+                <div class="particle particle-23"></div>
+                <div class="particle particle-24"></div>
+                <div class="particle particle-25"></div>
+                <div class="particle particle-26"></div>
+                <div class="particle particle-27"></div>
+                <div class="particle particle-28"></div>
+                <div class="particle particle-29"></div>
+                <div class="particle particle-30"></div>
+                <div class="particle particle-31"></div>
+                <div class="particle particle-32"></div>
+                <div class="particle particle-33"></div>
+                <div class="particle particle-34"></div>
+                <div class="particle particle-35"></div>
+                <div class="particle particle-36"></div>
+                <div class="particle particle-37"></div>
+                <div class="particle particle-38"></div>
+                <div class="particle particle-39"></div>
+                <div class="particle particle-40"></div>
+            </div>
+            <div class="gradient-orb orb-1"></div>
+            <div class="gradient-orb orb-2"></div>
+            <div class="gradient-orb orb-3"></div>
+        </div>
+        
         <div class="container">
             <div class="hero-content">
                 <div class="eyebrow">
@@ -190,7 +241,10 @@
             <div class="footer-grid">
                 <!-- Column 1 - Logo & Description -->
                 <div class="footer-column">
+                    <div class="footer-logo-container">
+                    <i data-lucide="orbit" class="orbit-icon footer-orbit"></i>
                     <div class="footer-logo">AIPermit</div>
+                </div>
                     <p class="footer-description">
                         Intelligent environmental compliance for the modern Texas energy sector.
                     </p>
@@ -225,6 +279,77 @@
             </div>
         </div>
     </footer>
+
+    <!-- Demo Request Modal -->
+    <div id="demoModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Request a Demo</h2>
+                <span class="close">&times;</span>
+            </div>
+            <form id="demoForm" class="demo-form">
+                <div class="form-group">
+                    <label for="firstName">First Name *</label>
+                    <input type="text" id="firstName" name="firstName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="lastName">Last Name *</label>
+                    <input type="text" id="lastName" name="lastName" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="company">Company *</label>
+                    <input type="text" id="company" name="company" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="jobTitle">Job Title</label>
+                    <input type="text" id="jobTitle" name="jobTitle">
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+                
+                <div class="form-group">
+                    <label for="industry">Industry</label>
+                    <select id="industry" name="industry">
+                        <option value="">Select Industry</option>
+                        <option value="oil-gas">Oil & Gas</option>
+                        <option value="consulting">Environmental Consulting</option>
+                        <option value="energy">Energy</option>
+                        <option value="manufacturing">Manufacturing</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Tell us about your compliance needs..."></textarea>
+                </div>
+                
+                <div class="form-group checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="newsletter" name="newsletter">
+                        <span class="checkmark"></span>
+                        Subscribe to our newsletter for compliance updates
+                    </label>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" id="cancelBtn">Cancel</button>
+                    <button type="submit" class="btn-primary">Request Demo</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <!-- Custom JavaScript -->
     <script src="script.js"></script>
