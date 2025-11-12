@@ -76,6 +76,18 @@ function initScrollAnimations() {
         el.classList.add('fade-in');
         observer.observe(el);
     });
+    
+    // Header scroll effect
+    const header = document.querySelector('.header');
+    if (header) {
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    }
 }
 
 // Button interactions and CTA handling
